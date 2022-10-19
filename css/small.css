@@ -1,0 +1,49 @@
+:root {
+  --bg-desktop: url(/images/bg-desktop-light.jpg);
+}
+
+html[data-theme="dark"] {
+  --bg-desktop: url(/images/bg-desktop-dark.jpg);
+}
+
+.container {
+  width: 480px;
+}
+
+.bg {
+  background-image: var(--bg-desktop);
+  height: 27vh;
+}
+
+.landing {
+  padding-top: 3rem;
+}
+
+/*---- list of tasks ---*/
+
+.last-row .filter {
+  display: none;
+}
+
+.list-tasks .text-task {
+  font-size: 1rem;
+}
+
+/*---- list of tasks ---*/
+
+/* footer filter */
+
+footer div.filter {
+  display: flex;
+}
+
+footer span {
+  color: var(--second-text-color);
+  cursor: pointer;
+}
+
+footer :not(span.active):hover {
+  color: var(--first-text-color);
+}
+
+/* footer filter */

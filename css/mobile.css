@@ -1,0 +1,20 @@
+:root {
+  --bg-mobile: url(/images/bg-mobile-light.jpg);
+}
+
+html[data-theme="dark"] {
+  --bg-mobile: url(/images/bg-mobile-dark.jpg);
+}
+
+.container {
+  width: 100%;
+}
+
+.bg {
+  background-image: var(--bg-mobile);
+  height: 27vh;
+}
+
+.landing {
+  padding-top: 2rem;
+}

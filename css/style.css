@@ -1,0 +1,239 @@
+/* rules */
+
+:root {
+  --primary-color: hsl(220, 98%, 61%);
+  --check-bg-color: linear-gradient(
+    to left,
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  --first-text-color: hsl(236, 12%, 25%);
+  --second-text-color: hsl(236, 9%, 61%);
+  --third-text-color: hsl(233, 11%, 84%);
+
+  --bg-color: hsl(0, 0%, 98%);
+  --list-color: white;
+
+  /* --first-text-color: hsl(236, 33%, 92%);
+  --second-text-color: hsl(234, 11%, 52%);
+  --third-text-color: hsl(234, 11%, 52%);
+
+  --bg-color: hsl(235, 21%, 11%);
+  --list-color: hsl(235, 24%, 19%); */
+}
+
+html[data-theme="dark"] {
+  --first-text-color: hsl(236, 33%, 92%);
+  --second-text-color: hsl(234, 11%, 52%);
+  --third-text-color: hsl(234, 11%, 52%);
+
+  --bg-color: hsl(235, 21%, 11%);
+  --list-color: hsl(235, 24%, 19%);
+}
+
+*,
+*::after,
+*::before,
+:is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Josefin Sans", sans-serif;
+  background-color: var(--bg-color);
+}
+
+p {
+  font-size: 18px;
+}
+
+/* rules */
+
+.landing {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bg {
+  position: absolute;
+  height: 40vh;
+  width: 100%;
+  background-color: var(--second-text-color);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -100;
+}
+
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-right: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  height: 1.5rem;
+  width: 1.5rem;
+  border: 1px solid var(--third-text-color);
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+div.row {
+  background-color: var(--list-color);
+  padding: 1.3rem;
+  border-radius: 10px;
+}
+
+/*---- header ---*/
+header.row {
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+
+header.row .logo {
+  color: white;
+  letter-spacing: 10px;
+}
+
+header .theme-icon {
+  cursor: pointer;
+}
+
+/*---- header ---*/
+
+/*---- input ---*/
+
+.input {
+  margin-bottom: 1rem;
+}
+
+.input input {
+  border: 0;
+  flex: 1;
+  font-size: 1.2rem;
+  background-color: var(--list-color);
+  color: var(--first-text-color);
+}
+
+.input input:focus {
+  outline: 0;
+}
+
+/*---- input ---*/
+
+/*---- list of tasks ---*/
+
+.list-tasks {
+  box-shadow: 0px 3px 27px -14px var(--third-text-color);
+  -webkit-box-shadow: 0px 3px 27px -14px var(--third-text-color);
+  -moz-box-shadow: 0px 3px 27px -14px var(--third-text-color);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: -50;
+}
+
+.list-tasks .last-row {
+  color: var(--second-text-color);
+}
+
+.list-tasks .last-row :is(.filter span, .clear-completed) {
+  cursor: pointer;
+}
+
+.list-tasks .last-row .filter :not(span.active):hover {
+  color: var(--first-text-color);
+}
+
+.list-tasks .row .cross {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.list-tasks .row {
+  border-radius: 0;
+}
+
+[data-complete="false"] .check:hover {
+  border: double 1px transparent;
+  border-radius: 80px;
+  background: linear-gradient(var(--list-color), var(--list-color)),
+    radial-gradient(circle at top left, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  cursor: pointer;
+}
+
+.list-tasks .row:not(:last-of-type) {
+  border-bottom: 1px solid var(--third-text-color);
+}
+
+.filter span.active {
+  color: var(--primary-color);
+}
+
+.text-task {
+  cursor: pointer;
+  color: var(--first-text-color);
+}
+
+.text-task::first-letter {
+  text-transform: capitalize;
+}
+
+[data-complete="true"] .check {
+  background-image: url(../images/icon-check.svg), var(--check-bg-color);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+[data-complete="true"] .text-task {
+  text-decoration: line-through;
+  color: var(--third-text-color);
+}
+
+.clear-completed:hover {
+  color: var(--first-text-color);
+}
+
+/* last row */
+
+.last-row {
+  justify-content: space-between;
+}
+
+/* last row */
+
+/*---- list of tasks ---*/
+
+/* footer filter */
+
+div.filter {
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* footer filter */
+
+/* reorder sentence */
+
+.reorder {
+  padding: 3rem;
+  color: var(--second-text-color);
+}
