@@ -86,6 +86,8 @@ class Ui {
 
   static deleteTask(e) {
     if (e.target.parentElement.classList.contains("cross")) {
+      // reduce sorting counter that recount tasks
+      --Ui.sortCounter;
       e.target.closest(".task").remove();
       Store.taskArray = Store.taskArray.filter(
         (task) => task.id != e.target.closest(".task").getAttribute("data-id")
@@ -237,85 +239,7 @@ class Ui {
     });
   }
 
-  // reordering function
-
-  static dragAndDrop() {
-    let dragStartIndex;
-    document.addEventListener("dragstart", (e) => {
-      if (e.target.classList.contains("task")) {
-        dragStartIndex = +e.target.getAttribute("data-index");
-      }
-    });
-
-    document.addEventListener("dragover", (e) => {
-      e.preventDefault();
-    });
-
-    document.addEventListener("drop", (e) => {
-      if (e.target.classList.contains("task")) {
-        let dragEndIndex = +e.target.getAttribute("data-index");
-        swapItems(dragStartIndex, dragEndIndex);
-      }
-    });
-
-    function swapItems(fromIndex, toIndex) {
-      let counter = 0;
-      let itemOne = Store.taskArray[fromIndex];
-      let itemTwo = Store.taskArray[toIndex];
-      let taskList = document.querySelector(".list-tasks");
-
-      Store.taskArray[fromIndex] = itemTwo;
-      Store.taskArray[toIndex] = itemOne;
-
-      // clear task list
-      document.querySelectorAll(".task").forEach((task) => {
-        task.remove();
-      });
-
-      // add sorted tasl list
-      Store.taskArray.forEach((newTask) => {
-        // create a new div
-        let task = document.createElement("div");
-        // classes
-        task.classList.add("row", "task");
-        // attributes
-        task.setAttribute("data-complete", newTask.complete);
-        task.setAttribute("data-id", newTask.id);
-        task.setAttribute("data-index", counter++);
-        task.setAttribute("draggable", "true");
-        // add task to list
-        taskList.prepend(task);
-
-        // create check circle
-        let check = document.createElement("div");
-        // classes
-        check.classList.add("circle", "check");
-        // add to task element
-        task.append(check);
-
-        // create task title
-        let title = document.createElement("span");
-        // classes
-        title.classList.add("text-task");
-        title.append(newTask.title);
-        // add task element
-        task.append(title);
-
-        // create cross
-        let cross = document.createElement("div");
-        // classes
-        cross.classList.add("cross");
-        // cross element content
-        cross.innerHTML =
-          "<img src=\"images/icon-cross.svg\" alt='cross icon' />";
-        // add cross element to task
-        task.append(cross);
-      });
-
-      // add task array changes to local storage
-      window.localStorage.setItem("tasks", JSON.stringify(Store.taskArray));
-    }
-  }
+  // sortable list task
 }
 
 //------------------------------------------------- Store class -------------------------------------------------//
@@ -430,5 +354,3 @@ Ui.filterOptions();
 Ui.clearCompleted();
 
 //------------------------------------------------- reorder functions and events -------------------------------------------------//
-
-document.addEventListener("DOMContentLoaded", Ui.dragAndDrop());
