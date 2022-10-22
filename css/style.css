@@ -64,7 +64,7 @@ p {
 }
 
 .bg {
-  position: absolute;
+  position: fixed;
   height: 40vh;
   width: 100%;
   background-color: var(--second-text-color);

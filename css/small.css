@@ -1,9 +1,9 @@
 :root {
-  --bg-desktop: url(/images/bg-desktop-light.jpg);
+  --bg-desktop: url(images/bg-desktop-light.jpg);
 }
 
 html[data-theme="dark"] {
-  --bg-desktop: url(/images/bg-desktop-dark.jpg);
+  --bg-desktop: url(images/bg-desktop-dark.jpg);
 }
 
 .container {
