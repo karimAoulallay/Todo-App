@@ -1,9 +1,9 @@
 :root {
-  --bg-mobile: url(images/bg-mobile-light.jpg);
+  --bg-mobile: url(./images/bg-mobile-light.jpg);
 }
 
 html[data-theme="dark"] {
-  --bg-mobile: url(images/bg-mobile-dark.jpg);
+  --bg-mobile: url(./images/bg-mobile-dark.jpg);
 }
 
 .container {
