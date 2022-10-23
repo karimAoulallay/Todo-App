@@ -1,7 +1,6 @@
 //------------------------------------------------- Task class -------------------------------------------------//
 
 class Task {
-  static counter = 0;
   constructor(title, id, complete) {
     this.title = title;
     this.id = id;
@@ -52,7 +51,6 @@ class Ui {
     // attributes
     task.setAttribute("data-complete", newTask.complete);
     task.setAttribute("data-id", newTask.id);
-    task.setAttribute("data-index", Task.counter++);
     task.setAttribute("draggable", "true");
     // add task to list
     this.taskList.prepend(task);
@@ -240,6 +238,112 @@ class Ui {
   }
 
   // sortable list task
+
+  static dragAndDrop() {
+    let dragStartIndex;
+
+    document.addEventListener("dragstart", (e) => {
+      if (e.target.classList.contains("task")) {
+        e.target.classList.add("drop");
+        Store.taskArray.forEach((task) => {
+          if (task.id == e.target.getAttribute("data-id")) {
+            dragStartIndex = Store.taskArray.indexOf(task);
+          }
+        });
+      }
+    });
+
+    document.addEventListener("dragover", (e) => {
+      if (e.target.classList.contains("task")) {
+        // add over class
+        e.target.classList.add("over");
+        // add drop class
+        e.target.classList.add("drop");
+        // prevent over event to give access to drop event
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("dragleave", (e) => {
+      if (e.target.classList.contains("task")) {
+        // remove over class
+        e.target.classList.remove("over");
+        // remove drop class
+        e.target.classList.remove("drop");
+      }
+    });
+
+    document.addEventListener("drop", (e) => {
+      if (e.target.classList.contains("task")) {
+        Store.taskArray.forEach((task) => {
+          if (task.id == e.target.getAttribute("data-id")) {
+            let dragEndIndex = Store.taskArray.indexOf(task);
+            // get swapped tasks function
+            swapItems(dragStartIndex, dragEndIndex);
+          }
+        });
+      }
+    });
+
+    function swapItems(fromIndex, toIndex) {
+      let itemOne = Store.taskArray[fromIndex];
+      let itemTwo = Store.taskArray[toIndex];
+      let taskList = document.querySelector(".list-tasks");
+
+      Store.taskArray[fromIndex] = itemTwo;
+      Store.taskArray[toIndex] = itemOne;
+
+      // remove all task elements from ui
+
+      document.querySelectorAll(".task").forEach((task) => {
+        task.remove();
+      });
+
+      // add new sorted array to local storage
+
+      window.localStorage.setItem("tasks", JSON.stringify(Store.taskArray));
+
+      // add sorted tasks to ui
+
+      Store.taskArray.forEach((newTask) => {
+        // create a new div
+        let task = document.createElement("div");
+        // classes
+        task.classList.add("row", "task");
+        // attributes
+        task.setAttribute("data-complete", newTask.complete);
+        task.setAttribute("data-id", newTask.id);
+        task.setAttribute("draggable", "true");
+        // add task to list
+        taskList.prepend(task);
+
+        // create check circle
+        let check = document.createElement("div");
+        // classes
+        check.classList.add("circle", "check");
+        // add to task element
+        task.append(check);
+
+        // create task title
+        let title = document.createElement("span");
+        // classes
+        title.classList.add("text-task");
+        title.append(newTask.title);
+        // add task element
+        task.append(title);
+
+        // create cross
+        let cross = document.createElement("div");
+        // classes
+        cross.classList.add("cross");
+        // cross element content
+        cross.innerHTML =
+          "<img src=\"images/icon-cross.svg\" alt='cross icon' />";
+        // add cross element to task
+        task.append(cross);
+      });
+    }
+  }
 }
 
 //------------------------------------------------- Store class -------------------------------------------------//
@@ -339,7 +443,7 @@ document.addEventListener("click", (e) => {
   Ui.completeTask(e);
 });
 
-//------------------------------------------------- Options functions and events -------------------------------------------------//
+//------------------------------------------------- Option functions and events -------------------------------------------------//
 
 // tasks left
 
@@ -354,3 +458,5 @@ Ui.filterOptions();
 Ui.clearCompleted();
 
 //------------------------------------------------- reorder functions and events -------------------------------------------------//
+
+Ui.dragAndDrop();
