@@ -237,3 +237,25 @@ div.filter {
   padding: 3rem;
   color: var(--second-text-color);
 }
+
+.over {
+  opacity: 0.2;
+}
+
+.drop {
+  animation-name: drop;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+}
+
+@keyframes drop {
+  0% {
+    translate: 10px 0;
+  }
+  50% {
+    translate: -10px 0;
+  }
+  100% {
+    translate: 0px 0;
+  }
+}
