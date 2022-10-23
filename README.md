@@ -27,7 +27,7 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 - Normalize css file
 - Local storage
 - Night and light mode
-- Sortable tasks list ( in progress )
+- Sortable tasks list
 
 ### What I learned
 
